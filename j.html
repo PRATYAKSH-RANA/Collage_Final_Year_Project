@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body{
+    padding: 0;
+    
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 20px;
+}
+.links a { margin: 0 10px; text-decoration: none; }
+.menu-btn { display: none; }
+
+@media (max-width: 600px) {
+  .links { display: none; }
+  .menu-btn { display: block; }
+}
+</style>
+<body>
+    <header class="navbar">
+  <div class="logo">MySite</div>
+  <nav class="links">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+  <button class="menu-btn">☰</button>
+</header>
+<form>
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Password" minlength="6" required>
+  <label><input type="checkbox" required> I agree</label>
+  <button type="submit">Submit</button>
+</form>
+
+
+    
+</body>
+</html>

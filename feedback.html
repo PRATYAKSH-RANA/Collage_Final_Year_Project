@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feedback — Rajiv Gandhi Government Engineering College Kangra (RGGEC)</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+</head>
+<style>
+    :root{
+  --accent:#c00707;
+  --glass: rgba(255,255,255,0.65);
+  --glass-strong: rgba(255,255,255,0.85);
+  --muted:#666;
+  --maxw:1100px;
+  --radius:12px;
+  --shadow: 0 10px 30px rgba(18,30,40,0.12);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family: 'Poppins', system-ui, Arial; color:#122; background:#f4f6f8;}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+
+/* NAVBAR (transparent) */
+.navbar{position:fixed;left:0;right:0;top:0;z-index:60;background:transparent;backdrop-filter: blur(4px);transition:background 300ms ease, box-shadow 300ms ease;padding:8px 0}
+.navbar.scrolled{background: rgba(12,20,30,0.78);box-shadow: 0 6px 18px rgba(0,0,0,0.25)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:white}
+.nav-logo{width:44px;height:44px;border-radius:8px;object-fit:cover}
+.brand-text{font-weight:700;color:#fff}
+.nav-menu{display:flex;gap:.6rem;align-items:center}
+.nav-menu a{color:rgb(206, 18, 18);text-decoration:none;padding:.45rem .7rem;border-radius:6px;font-weight:600}
+.nav-menu a.active{background:rgba(255,255,255,0.08)}
+#nav-toggle{display:none}
+
+/* HERO */
+.hero-visual{height:36vh;min-height:220px;background-image:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.28)), url('IMG');background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:2.6rem 0;margin-top:56px}
+.hero-overlay{color:white;padding:1.6rem 1rem;max-width:900px}
+.hero-overlay h1{margin:0;font-size:1.9rem;letter-spacing:0.2px}
+.hero-overlay p{margin:.5rem 0 0;color:rgba(255,255,255,0.92)}
+
+/* LAYOUT */
+.page{padding:2rem 0}
+.feedback-wrap{display:grid;grid-template-columns:1fr 320px;gap:1rem;align-items:start}
+@media(max-width:920px){ .feedback-wrap{grid-template-columns:1fr} .hero-visual{min-height:200px} .nav-menu{display:none} #nav-toggle{display:block} }
+
+/* GLASS CARD */
+.glass-card{background:var(--glass);border-radius:var(--radius);padding:1.2rem;box-shadow:var(--shadow);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.6)}
+.glass-card h2{margin:0 0 .25rem;font-size:1.35rem}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+
+/* FORM */
+.row{margin-top:12px;display:flex;flex-direction:column}
+label{font-weight:600;margin-bottom:6px}
+input[type="text"], input[type="email"], textarea{
+  padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);font-size:1rem;outline:none;
+  transition:box-shadow .18s ease, transform .12s ease;
+}
+input:focus, textarea:focus{box-shadow:0 6px 18px rgba(12,30,60,0.08);transform:translateY(-1px)}
+textarea{min-height:140px;resize:vertical}
+
+/* RATING */
+.rating{display:flex;gap:6px}
+.star{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:6px 10px;border-radius:8px;font-size:18px;cursor:pointer;color: #d0cfcf;transition:transform .14s ease, background .12s}
+.star.active{color: #ffb347;background: rgba(255,180,80,0.06);border-color: rgba(255,180,80,0.12);transform:translateY(-3px)}
+.star:focus{outline:2px solid rgba(0,0,0,0.06)}
+
+/* ACTIONS */
+.actions{display:flex;gap:.6rem;align-items:center;margin-top:14px}
+.btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+.btn.primary{background:var(--accent);color:white;box-shadow: 0 8px 18px rgba(192,7,7,0.12)}
+.btn.ghost{background:transparent;border:1px solid rgba(18,30,40,0.06)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+
+/* INFO CARD */
+.info-card{background:var(--glass-strong);padding:1rem;border-radius:12px;box-shadow:var(--shadow);height:fit-content}
+.info-card h3{margin-top:0}
+
+/* POPUP */
+.popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.98);min-width:300px;max-width:90%;z-index:120;display:none}
+.popup-inner{background:white;padding:18px;border-radius:12px;box-shadow:0 20px 40px rgba(2,10,30,0.18);text-align:center}
+.popup.show{display:block;animation:pop .26s ease both}
+@keyframes pop{from{transform:translate(-50%,-50%) scale(.94);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+
+/* FOOTER */
+.site-footer{background:#d30404;color:white;padding:18px 0;margin-top:36px}
+.footer-inner{display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.footer-inner a{color:white;text-decoration:underline}
+@media(max-width:780px){ .footer-inner{flex-direction:column;text-align:center} }
+
+/* small helpers */
+.container{padding-left:1rem;padding-right:1rem}
+a{color:var(--accent)}
+
+</style>
+<body>
+
+  <!-- TRANSPARENT NAVBAR -->
+  <header class="navbar" role="banner" aria-label="Main header">
+    <div class="nav-inner container">
+      <a class="brand" href="#">
+        <img src="RGGEC-Logo-300x236-removebg-preview.png" alt="RGGEC Logo" class="nav-logo">
+        <span class="brand-text">RGGEC</span>
+      </a>
+
+      <nav aria-label="Primary" class="nav-menu">
+        <a href="new.html">Home</a>
+        <a href="aboutnew.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html" class="active">Feedback</a>
+      </nav>
+
+      <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <!-- HERO (puts navbar on top) -->
+  <section class="hero-visual" aria-hidden="false">
+    <div class="hero-overlay">
+      <h1>We'd love your feedback</h1>
+      <p>Rajiv Gandhi Government Engineering College Kangra — Help us improve the campus experience.</p>
+    </div>
+  </section>
+
+  <!-- FEEDBACK CARD -->
+  <main class="page container" id="main">
+    <section class="feedback-wrap" aria-labelledby="fb-heading">
+      <div class="glass-card">
+        <h2 id="fb-heading">Send Feedback</h2>
+        <p class="muted">Tell us what you think — anonymous submissions allowed. We value constructive feedback.</p>
+
+        <form id="feedbackForm" novalidate>
+          <div class="row">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name (optional)">
+          </div>
+
+          <div class="row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div class="row">
+            <label>Rating</label>
+            <div class="rating" role="radiogroup" aria-label="Star rating">
+              <button type="button" class="star" data-rate="1" aria-checked="false" role="radio" title="1 star">★</button>
+              <button type="button" class="star" data-rate="2" aria-checked="false" role="radio" title="2 stars">★</button>
+              <button type="button" class="star" data-rate="3" aria-checked="false" role="radio" title="3 stars">★</button>
+              <button type="button" class="star" data-rate="4" aria-checked="false" role="radio" title="4 stars">★</button>
+              <button type="button" class="star" data-rate="5" aria-checked="false" role="radio" title="5 stars">★</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your feedback..." required></textarea>
+          </div>
+
+          <div class="row actions">
+            <button id="submitBtn" class="btn primary" type="submit">Submit Feedback</button>
+            <button id="resetBtn" class="btn ghost" type="button">Reset</button>
+          </div>
+
+          <div class="row note muted small">By submitting you consent to the college storing your feedback. For urgent queries email: <a href="mailto:gamerzskull9@gmail.com">gamerzskull9@gmail.com</a></div>
+        </form>
+      </div>
+
+      <!-- RIGHT: quick info -->
+      <aside class="info-card">
+        <h3>Contact</h3>
+        <p><strong>RGGEC</strong><br>Rajiv Gandhi Government Engineering College Kangra</p>
+        <p>Email: <a href="mailto:gamerzskull9@gmail.com">gamerzskull9@gmail.com</a></p>
+        <p>Phone: +91-1892-249188</p>
+      </aside>
+    </section>
+  </main>
+
+  <!-- SUCCESS POPUP -->
+  <div id="popup" class="popup" role="status" aria-live="polite" aria-hidden="true">
+    <div class="popup-inner">
+      <h3>Thank you — feedback saved ✅</h3>
+      <p>Your feedback has been recorded. We appreciate your time.</p>
+      <button id="closePopup" class="btn primary">Close</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Rajiv Gandhi Government Engineering College Kangra (RGGEC)</strong><br>
+        Nagrota Bagwan, Himachal Pradesh — 176047
+      </div>
+      <div>
+        <a href="new.html">Home</a> · <a href="aboutnew.html">About</a> · <a href="contact.html">Contact</a>
+      </div>
+      <div>© RGGEC 2025 — Made by Pratyaksh Rana (ECE)</div>
+    </div>
+  </footer>
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzqdd0KARkaUoG8p-P3BC5QSZz9dNxXo8kgqxHkQWGVvUkJzxq_c0SwnOv17TBdo6koRA/exec";
+
+document.getElementById("feedbackForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const statusMsg = document.getElementById("statusMsg");
+    statusMsg.style.color = "yellow";
+    statusMsg.innerHTML = "Submitting... ⏳";
+
+    const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        rating: document.getElementById("rating").value,
+        message: document.getElementById("message").value,
+    };
+
+    try {
+        const res = await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+
+        if (result.result === "success") {
+            statusMsg.style.color = "lightgreen";
+            statusMsg.innerHTML = "✅ Feedback Sent Successfully!";
+            document.getElementById("feedbackForm").reset();
+        } else {
+            statusMsg.style.color = "red";
+            statusMsg.innerHTML = "❌ Something went wrong!";
+        }
+
+    } catch (error) {
+        statusMsg.style.color = "red";
+        statusMsg.innerHTML = "⚠️ Could not send feedback!";
+    }
+});
+
+
+
+</script>
+</body>
+</html>

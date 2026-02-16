@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Notifications</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --maroon:#a01414; --maroon-dark:#cf1a1a; --muted:#6b6b6b;
+  --bg:#f5f6f7; --card:#fff; --maxw:1200px; --glass:rgba(255,255,255,0.6);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial;color:#222;background:var(--bg);-webkit-font-smoothing:antialiased}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+
+/* TOP UTILITY BAR */
+.utility{background:#0b2340;color:#fff;font-size:0.9rem}
+.utility .container{display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0}
+.utility .left{display:flex;gap:1rem;align-items:center}
+.lang-select{background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgb(165, 53, 53);padding:0.25rem 0.5rem;border-radius:6px}
+.utility a{color:#186eca;text-decoration:none}
+
+/* COLLEGE NAME BANNER */
+.college-banner {
+  background: linear-gradient(90deg, var(--maroon), var(--maroon-dark));
+  color: white;
+  padding: 0.8rem 0;
+}
+.college-banner .banner-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.college-banner .logo img {
+  width: 140px;   /* increased from 80px to 140px */
+  height: auto;
+  border-radius: 8px;
+  background: white;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* subtle shadow for pop */
+  transition: transform 0.3s;
+}
+
+.college-banner .logo img:hover {
+  transform: scale(1.05); /* small hover zoom effect */
+}
+
+.college-banner .college-name h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.college-banner .college-name p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  ;
+}
+
+/* HEADER / NAV */
+header{
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: linear-gradient(90deg,var(--maroon) 0%,var(--maroon-dark) 100%);
+}
+nav.primary{display:flex;justify-content:center}
+.menu{display:flex;gap:0.5rem;list-style:none;margin:0;padding:0.6rem 0}
+.menu li{position:relative}
+.menu a{display:block;padding:0.6rem 1rem;color:white;text-decoration:none;font-weight:600;border-radius:6px;transition:0.3s}
+.menu a:hover{background:rgba(255,255,255,0.1)}
+.megapanel{position:absolute;left:0;top:calc(100% + 10px);background:var(--card);color:#222;padding:1rem;border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,0.12);display:none;width:820px}
+.menu li:hover>.megapanel{display:block}
+.megapanel .col{width:50%;float:left;padding:0 0.75rem}
+.megapanel:after{content:'';display:block;clear:both}
+
+/* HERO + SLIDER */
+.hero{ position: relative;height:60vh;min-height:480px;display:flex;align-items:flex-end;overflow:hidden;margin-top:5px;}
+.hero .slides{position:absolute;inset:0}
+.hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 900ms ease}
+.hero .slide.active{opacity:1}
+.hero-overlay{position:relative;z-index:6;padding:3.5rem 0;color:white}
+.hero-card{max-width:820px;background:linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.45));padding:1.8rem;border-radius:10px}
+.hero-card h1{margin:0 0 0.45rem 0;font-size:2rem}
+.hero-controls{position:absolute;left:50%;transform:translateX(-50%);bottom:1.5rem;display:flex;gap:0.5rem;z-index:9}
+.dot{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,0.45);border:2px solid rgba(255,255,255,0.12)}
+.dot.active{background:white;border-color:rgba(255,255,255,0.95)}
+
+/* ANNOUNCEMENTS */
+.announcements{margin-top:-28px;position:relative;padding:0 0 0.6rem;padding-top:22%;}
+.ann-wrap{background:var(--card);padding:0.6rem;border-radius:8px;display:flex;align-items:center;gap:1rem;box-shadow:0 10px 30px rgba(0,0,0,0.06)}
+.ann-label{background:var(--maroon);color:white;padding:0.45rem 0.7rem;border-radius:6px;font-weight:700}
+.ticker{overflow:hidden;height:48px}
+.ticker ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;animation:scroll 11s linear infinite}
+.ticker li{padding:6px 0;font-weight:600;color:var(--muted)}
+@keyframes scroll{0%{transform:translateY(0)}25%{transform:translateY(0)}33%{transform:translateY(-100%)}58%{transform:translateY(-100%)}66%{transform:translateY(-200%)}91%{transform:translateY(-200%)}100%{transform:translateY(0)}}
+
+/* MAIN GRID */
+main{padding:1.25rem 0}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:1rem}
+.news-list .news-item{display:flex;gap:0.9rem;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:0.85rem;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+.news-item img{width:140px;height:90px;object-fit:cover;border-radius:6px}
+.news-body h3{margin:0;font-size:1.05rem}
+.meta{color:var(--muted);font-size:0.9rem;margin-top:6px}
+.card{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.04)}
+.events li{list-style:none;padding:0.5rem 0;border-bottom:1px dashed #efefef}
+.quick-links a{display:block;padding:0.45rem 0;color:var(--maroon);text-decoration:none;font-weight:600}
+
+/* COUNTERS */
+.stats-section{background:#385181;padding:60px 0}
+.stats-section .container{width:90%;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:25px}
+.stat-box{background:#ffffff;padding:35px 20px;text-align:center;border-radius:15px;border:2px solid #003366;transition:0.4s ease-in-out;cursor:pointer}
+.stat-box:hover{background:linear-gradient(135deg,#003366,#005fa3);color:#FFCC00;transform:translateY(-10px);box-shadow:0 10px 20px rgba(0,0,0,0.3)}
+.icon{font-size:45px;margin-bottom:12px;color:#003366}
+.stat-box:hover .icon{color:#FFCC00}
+.counter{font-size:34px;font-weight:700;margin-bottom:8px;color:#003366}
+.stat-box:hover .counter{color:#FFCC00}
+.stat-box p{font-size:18px;font-weight:500;color:#333}
+.stat-box:hover p{color:#fff}
+
+/* FOOTER */
+footer{background:#d30404;color:#fff;font-family:'Segoe UI',sans-serif;position:relative}
+.footer-container{display:flex;flex-wrap:wrap;justify-content:space-between;padding:40px 5vw 15px 5vw}
+.footer-section{flex:1 1 200px;margin:10px 20px}
+.footer-section h3{border-bottom:2px solid #09c;padding-bottom:8px;margin-bottom:15px;font-size:1.2em;letter-spacing:1px}
+.footer-section ul{list-style:none;padding:0}
+.footer-section ul li{margin-bottom:10px}
+.footer-section ul li a{color:#f3f3f3;text-decoration:none;transition:color 0.2s}
+.footer-section ul li a:hover{color:#09c}
+.footer-section .social-icons a{font-size:1.5em;margin-right:10px;color:#f3f3f3;transition:color 0.2s, transform 0.2s}
+.footer-section .social-icons a:hover{color:#09c;transform:scale(1.15)}
+.footer-bottom{background:#144245;text-align:center;padding:15px 0;font-size:1em;position:relative}
+#toTop{position:absolute;right:30px;top:10px;background:#0099cc;border:none;color:#fff;font-size:24px;border-radius:50%;width:34px;height:34px;cursor:pointer;transition:background 0.25s}
+#toTop:hover{background:#007a99}
+
+/* Responsive */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .megapanel{position:static;width:100%;box-shadow:none;border-radius:0;padding:0;margin-top:8px}
+  .menu{display:none}
+  .sections-container{grid-template-columns:1fr}
+  .college-banner .banner-content{flex-direction:column;text-align:center;gap:0.5rem}
+}
+@media(max-width:640px){
+  .hero-card h1{font-size:1.35rem}
+}
+
+/* notification bar */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #dbe2e8;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sliding Notification Bar */
+
+.download-icon {
+  text-align: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.download-icon i:hover {
+  color: #f5821f;
+}
+
+
+.notification-bar {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #c00707, #8b0000);
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: top 0.6s ease-in-out;
+}
+.notification-bar.show {
+  top: 0;
+}
+.notification-bar button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 8px;
+}
+
+/* Search box */
+.search-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 30px auto 10px;
+  width: 90%;
+  max-width: 1100px;
+}
+.search-box input {
+  width: 250px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 6px 0 0 6px;
+  font-size: 1rem;
+}
+.search-box button {
+  background: #3a3a92;
+  color: #fff;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.search-box button:hover {
+  background: #29296f;
+}
+
+/* Table styles */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+thead {
+  background: #b60c0c;
+  color: #fff;
+  text-align: center;
+}
+thead th {
+  padding: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+tbody td {
+  border: 1px solid #f5821f;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  color: #333;
+  vertical-align: middle;
+}
+tbody tr:hover {
+  background: #fff5ef;
+}
+tbody td a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+tbody td a:hover {
+  text-decoration: underline;
+}
+.download-icon {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #000;
+  cursor: pointer;
+}
+.download-icon:hover {
+  color: #f5821f;
+}
+
+/* Pagination */
+.pagination {
+  text-align: center;
+  padding: 15px;
+}
+.pagination button {
+  background: #eee;
+  border: 1px solid #ccc;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.pagination button.active {
+  background: #f5821f;
+  color: white;
+  border: none;
+}
+.pagination button:hover {
+  background: #f5821f;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<!-- Sliding Notification -->
+<!-- <div class="notification-bar" id="notifyBar">
+  <span id="notifyText">📢 New Examination Form Released!</span>
+  <button onclick="hideNotification()">✖</button>
+</div> -->
+
+<!-- Utility Bar -->
+<div class="utility">
+  <div class="container">
+    <div class="left">
+      <div>Students | Faculty | Placements</div>
+      <div style="margin-left:1rem">
+        <select class="lang-select" aria-label="Language selector">
+          <option>English</option>
+          <option>हिन्दी</option>
+        </select>
+      </div>
+    </div>
+    <div><a href="#">Contact</a> • <a href="#">Search</a></div>
+  </div>
+</div>
+
+<!-- College Banner -->
+<div class="college-banner">
+  <div class="container banner-content">
+    <div class="logo">
+      <img src="RGGEC-Logo-300x236.png"  alt="RGGEC Logo">
+    </div>
+    <div class="college-name">
+      <h1>Rajiv Gandhi Engineering College Kangra At Nagrota Bagwan<br>Affiliated To Himachal Pradesh Technical University</h1>
+      <p>Knowledge • Service • Excellence</p>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<header>
+  <div class="container topnav">
+    <nav class="primary" aria-label="Main navigation">
+      <ul class="menu" role="menubar">
+        <li><a href="#">Home</a></li>
+        <li>
+          <a href="about.html" aria-haspopup="true">About</a>
+          <div class="megapanel" role="menu">
+            <div class="col">
+              <h4>Overview</h4>
+              <p>History, Vision, Director's message and institute profile.</p>
+              <a href="#">Leadership</a>
+              <a href="#">Accreditation</a>
+            </div>
+            <div class="col">
+              <h4>Resources</h4>
+              <a href="#">Library</a>
+              <a href="#">Campus Facilities</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#academics">Academics</a></li>
+        <li><a href="#admissions">Admissions</a></li>
+        <li><a href="#departments">Departments</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Search -->
+<div class="search-box">
+  <input type="text" placeholder="Search notice..." id="searchInput">
+  <button onclick="filterTable()">Apply</button>
+</div>
+
+<!-- Table Container -->
+<div class="container">
+ <table id="noticeTable">
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Title</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Click Here to Fill-in the Online Examination Form of Regular, Re-appear and Special Chance for Session Dec, 2025</td>
+      <td class="download-icon">
+        <a href="https://hptuexam.com/site/userlogin" target="_blank">
+          <i class="fa-solid fa-download"></i>
+        </a>
+      </td>
+    </tr>
+
+    <tr>
+      <td>2</td>
+      <td>Notification of Online Examination Form for Under Graduate (U.G.) End Semester Examination December-2025</td>
+      <td class="download-icon">
+        <i class="fa-solid fa-download"></i>
+      </td>
+    </tr>
+
+    <tr>
+      <td>3</td>
+      <td>Result of Re-evaluation of B.Tech CSE, CS&AI, CS&E(AI/ML) and CS&E(AI/DS) Branch (CBCS & NEP), May 2025 (Lot-2)</td>
+      <td class="download-icon">
+        <i class="fa-solid fa-download"></i>
+      </td>
+    </tr>
+
+    <tr>
+      <td>4</td>
+      <td>Auction Notice for Furniture, Iron, Plastic and Cardboard Items</td>
+      <td class="download-icon">
+        <i class="fa-solid fa-download"></i>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+  <div class="pagination">
+    <button class="active">1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>Next ›</button>
+    <button>Last »</button>
+  </div>
+</div>
+
+<script>
+// --- Sliding Notification ---
+function showNotification(msg) {
+  const bar = document.getElementById('notifyBar');
+  const text = document.getElementById('notifyText');
+  text.textContent = msg;
+  bar.classList.add('show');
+
+  setTimeout(() => {
+    bar.classList.remove('show');
+  }, 6000);
+}
+
+function hideNotification() {
+  document.getElementById('notifyBar').classList.remove('show');
+}
+
+// Show on page load
+window.onload = () => {
+  showNotification("📢 New Examination Form Released! Apply Now");
+};
+
+// --- Search Functionality ---
+function filterTable() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const rows = document.querySelectorAll("#noticeTable tbody tr");
+
+  rows.forEach(row => {
+    const text = row.innerText.toLowerCase();
+    row.style.display = text.includes(input) ? "" : "none";
+  });
+}
+</script>
+
+</body>
+</html>

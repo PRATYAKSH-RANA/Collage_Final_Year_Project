@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rajiv Gandhi Engineering College — Home</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --maroon:#a01414; --maroon-dark:#cf1a1a; --muted:#6b6b6b;
+  --bg:#f5f6f7; --card:#fff; --maxw:1200px; --glass:rgba(255,255,255,0.6);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial;color:#222;background:var(--bg);-webkit-font-smoothing:antialiased}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+
+/* TOP UTILITY BAR */
+.utility{background:#0b2340;color:#fff;font-size:0.9rem}
+.utility .container{display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0}
+.utility .left{display:flex;gap:1rem;align-items:center}
+.lang-select{background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgb(165, 53, 53);padding:0.25rem 0.5rem;border-radius:6px}
+.utility a{color:#186eca;text-decoration:none}
+
+/* COLLEGE NAME BANNER */
+.college-banner {
+  background: linear-gradient(90deg, var(--maroon), var(--maroon-dark));
+  color: white;
+  padding: 0.8rem 0;
+}
+.college-banner .banner-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.college-banner .logo img {
+  width: 140px;   /* increased from 80px to 140px */
+  height: auto;
+  border-radius: 8px;
+  background: white;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* subtle shadow for pop */
+  transition: transform 0.3s;
+}
+
+.college-banner .logo img:hover {
+  transform: scale(1.05); /* small hover zoom effect */
+}
+
+.college-banner .college-name h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.college-banner .college-name p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  ;
+}
+
+/* HEADER / NAV */
+header{
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: linear-gradient(90deg,var(--maroon) 0%,var(--maroon-dark) 100%);
+}
+nav.primary{display:flex;justify-content:center}
+.menu{display:flex;gap:0.5rem;list-style:none;margin:0;padding:0.6rem 0}
+.menu li{position:relative}
+.menu a{display:block;padding:0.6rem 1rem;color:white;text-decoration:none;font-weight:600;border-radius:6px;transition:0.3s}
+.menu a:hover{background:rgba(255,255,255,0.1)}
+.megapanel{position:absolute;left:0;top:calc(100% + 10px);background:var(--card);color:#222;padding:1rem;border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,0.12);display:none;width:820px}
+.menu li:hover>.megapanel{display:block}
+.megapanel .col{width:50%;float:left;padding:0 0.75rem}
+.megapanel:after{content:'';display:block;clear:both}
+
+/* HERO + SLIDER */
+.hero{ position: relative;height:60vh;min-height:480px;display:flex;align-items:flex-end;overflow:hidden;margin-top:5px;}
+.hero .slides{position:absolute;inset:0}
+.hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 900ms ease}
+.hero .slide.active{opacity:1}
+.hero-overlay{position:relative;z-index:6;padding:3.5rem 0;color:white}
+.hero-card{max-width:820px;background:linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.45));padding:1.8rem;border-radius:10px}
+.hero-card h1{margin:0 0 0.45rem 0;font-size:2rem}
+.hero-controls{position:absolute;left:50%;transform:translateX(-50%);bottom:1.5rem;display:flex;gap:0.5rem;z-index:9}
+.dot{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,0.45);border:2px solid rgba(255,255,255,0.12)}
+.dot.active{background:white;border-color:rgba(255,255,255,0.95)}
+
+/* ANNOUNCEMENTS */
+.announcements{margin-top:-28px;position:relative;padding:0 0 0.6rem;padding-top:22%;}
+.ann-wrap{background:var(--card);padding:0.6rem;border-radius:8px;display:flex;align-items:center;gap:1rem;box-shadow:0 10px 30px rgba(0,0,0,0.06)}
+.ann-label{background:var(--maroon);color:white;padding:0.45rem 0.7rem;border-radius:6px;font-weight:700}
+.ticker{overflow:hidden;height:48px}
+.ticker ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;animation:scroll 11s linear infinite}
+.ticker li{padding:6px 0;font-weight:600;color:var(--muted)}
+@keyframes scroll{0%{transform:translateY(0)}25%{transform:translateY(0)}33%{transform:translateY(-100%)}58%{transform:translateY(-100%)}66%{transform:translateY(-200%)}91%{transform:translateY(-200%)}100%{transform:translateY(0)}}
+
+/* MAIN GRID */
+main{padding:1.25rem 0}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:1rem}
+.news-list .news-item{display:flex;gap:0.9rem;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:0.85rem;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+.news-item img{width:140px;height:90px;object-fit:cover;border-radius:6px}
+.news-body h3{margin:0;font-size:1.05rem}
+.meta{color:var(--muted);font-size:0.9rem;margin-top:6px}
+.card{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.04)}
+.events li{list-style:none;padding:0.5rem 0;border-bottom:1px dashed #efefef}
+.quick-links a{display:block;padding:0.45rem 0;color:var(--maroon);text-decoration:none;font-weight:600}
+
+/* COUNTERS */
+.stats-section{background:#f8f9fb;padding:60px 0}
+.stats-section .container{width:90%;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:25px}
+.stat-box{background:#ffffff;padding:35px 20px;text-align:center;border-radius:15px;border:2px solid #003366;transition:0.4s ease-in-out;cursor:pointer}
+.stat-box:hover{background:linear-gradient(135deg,#003366,#005fa3);color:#FFCC00;transform:translateY(-10px);box-shadow:0 10px 20px rgba(0,0,0,0.3)}
+.icon{font-size:45px;margin-bottom:12px;color:#003366}
+.stat-box:hover .icon{color:#FFCC00}
+.counter{font-size:34px;font-weight:700;margin-bottom:8px;color:#003366}
+.stat-box:hover .counter{color:#FFCC00}
+.stat-box p{font-size:18px;font-weight:500;color:#333}
+.stat-box:hover p{color:#fff}
+
+/* FOOTER */
+footer{background:#d30404;color:#fff;font-family:'Segoe UI',sans-serif;position:relative}
+.footer-container{display:flex;flex-wrap:wrap;justify-content:space-between;padding:40px 5vw 15px 5vw}
+.footer-section{flex:1 1 200px;margin:10px 20px}
+.footer-section h3{border-bottom:2px solid #09c;padding-bottom:8px;margin-bottom:15px;font-size:1.2em;letter-spacing:1px}
+.footer-section ul{list-style:none;padding:0}
+.footer-section ul li{margin-bottom:10px}
+.footer-section ul li a{color:#f3f3f3;text-decoration:none;transition:color 0.2s}
+.footer-section ul li a:hover{color:#09c}
+.footer-section .social-icons a{font-size:1.5em;margin-right:10px;color:#f3f3f3;transition:color 0.2s, transform 0.2s}
+.footer-section .social-icons a:hover{color:#09c;transform:scale(1.15)}
+.footer-bottom{background:#144245;text-align:center;padding:15px 0;font-size:1em;position:relative}
+#toTop{position:absolute;right:30px;top:10px;background:#0099cc;border:none;color:#fff;font-size:24px;border-radius:50%;width:34px;height:34px;cursor:pointer;transition:background 0.25s}
+#toTop:hover{background:#007a99}
+
+/* Responsive */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .megapanel{position:static;width:100%;box-shadow:none;border-radius:0;padding:0;margin-top:8px}
+  .menu{display:none}
+  .sections-container{grid-template-columns:1fr}
+  .college-banner .banner-content{flex-direction:column;text-align:center;gap:0.5rem}
+}
+@media(max-width:640px){
+  .hero-card h1{font-size:1.35rem}
+}
+
+/* message */
+
+.msg{
+  
+            white-space: normal;
+  width: 99%;
+  font-size: 16px;
+  color: #f7eded;
+  line-height: 11.6;
+  text-align: justify;
+  line-height: 1.8;
+  background-image: url(IMG_20200124_140010-1.jpg);
+  
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh-100px);
+  
+        
+}
+.message {
+    font-size: 1.5em;
+    color: #fff;
+    text-align: justify;
+    /* background: transparent; Optional: white faded background for easier reading can be white etc */
+    background: rgba(0,0,0,0.3); /* optional: faded box for even clearer text */
+    padding: 24px 48px;
+    border-radius: 12px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.7); /* enhances contrast */
+}
+/* College Top Banner */
+/* ====== REPLACE/ADD THESE CSS RULES FOR THE BANNER ====== */
+
+
+.college-banner {
+  background: linear-gradient(90deg, var(--maroon), var(--maroon-dark));
+  color: #fff;
+  width: 100%;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+/* inner grid keeps layout stable and centered with container width */
+.college-banner .banner-inner {
+  display: grid;
+  grid-template-columns: 150px 1fr 110px; /* left-logo | title-area | right-logo */
+  align-items: center;
+  gap: 1rem;
+  padding: 12px 1rem;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* logos */
+.banner-logo {
+  display: block;
+  width: 120%;
+  height: auto;
+  background: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  object-fit: contain;
+}
+
+/* make sure logos don't grow or shrink out of their columns */
+.banner-left, .banner-right {
+  display:flex;
+  align-items:center;
+  justify-content:center
+  
+}
+
+/* center text area — left align inside the flexible center column,
+   and add left-padding to nudge it away from the left logo */
+.banner-center {
+  text-align: left;        /* left align to avoid visual overlap */
+  padding-left: 26px;     /* <-- increase or reduce this to nudge right */
+  min-width: 220px;       /* prevents it from collapsing on narrower widths */
+}
+
+/* text styling */
+.site-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;      /* increase/decrease as needed */
+  line-height: 1.05;
+  color: #fff;
+  white-space: nowrap;    /* keep on single line; will ellipsis if needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.site-tagline {
+  margin-top: 4px;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.92);
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 820px) {
+  .college-banner .banner-inner {
+    grid-template-columns: 1fr; /* single column stack */
+    gap: 10px;
+    padding: 12px;
+  }
+  .banner-left, .banner-right { justify-content: center; }
+  .banner-center { text-align: center; padding-left: 0; }
+  .site-title { font-size: 1.35rem; white-space: normal; }
+}
+
+/* Optional: tweak logo sizes on very narrow screens */
+@media (max-width: 420px) {
+  .banner-logo { padding: 6px; }
+  .site-title { font-size: 1.1rem; }
+}
+
+/* mechnailca */
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+
+
+/* Section Title */
+.faculty-section {
+  text-align: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.faculty-section h1 {
+  font-size: 2.5em;
+  color: #002147;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #555;
+  margin-bottom: 50px;
+  font-size: 1.1em;
+}
+
+/* Faculty Grid */
+.faculty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 30px;
+}
+
+/* Faculty Card */
+.faculty-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  padding: 25px 20px 35px;
+  position: relative;
+}
+
+.faculty-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Box */
+.img-box {
+  width: 70%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+ 
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.faculty-card:hover .img-box img {
+  transform: scale(1.1);
+}
+
+/* Text Styles */
+.faculty-card h3 {
+  color: #002147;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.designation {
+  color: #0077b6;
+  font-weight: 600;
+  font-size: 0.95em;
+  margin-bottom: 10px;
+}
+
+.quote {
+  color: #555;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Utility Bar -->
+<div class="utility">
+    <div class="container">
+      <div class="left">
+        <div><a href="#" ><i class="fa fa-envelope">rggec.office@gmail.com</i></a> <a href="#"></a></div>
+        <div style="margin-left:1rem">
+          <select class="lang-select" aria-label="Language selector">
+            <option>English</option>
+            <option>हिन्दी</option>
+          </select>
+        </div>
+      </div>
+      <div>  <input type="search" id="site-search" name="q" placeholder="Type Here" /><button>Search</button>
+    </div>
+    <div class="zoom-controls" role="region" aria-label="Text size controls">
+    <button id="zoom-decrease" class="zoom-btn" aria-label="Decrease text size">A-</button>
+    <button id="zoom-reset" class="zoom-btn" aria-label="Reset text size">A</button>
+    <button id="zoom-increase" class="zoom-btn" aria-label="Increase text size">A+</button>
+  </div>
+  </div>
+<!-- College Banner -->
+<!-- ====== REPLACE EXISTING BANNER MARKUP WITH THIS ====== -->
+<div class="college-banner">
+  <div class="banner-inner container">
+    <div class="banner-left">
+      <img src="RGGEC-Logo-300x236.png" alt="RGGEC Logo" class="banner-logo left-logo">
+    </div>
+
+    <div class="banner-center">
+      <div class="site-title">Rajiv Gandhi Engineering College Kangra AtNagrota Bagwan</div>
+      <div class="site-tagline">Knowledge • Service • Excellence</div>
+    </div>
+
+    <div class="banner-right">
+      <img src="image.png" alt="Partner Logo" class="banner-logo right-logo" width="130ox">
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- NAVBAR -->
+<header>
+  <div class="container topnav">
+    <nav class="primary" aria-label="Main navigation">
+      <ul class="menu" role="menubar">
+        <li><a href="new.html">Home</a></li>
+        <li>
+          <a href="#" aria-haspopup="true">About</a>
+          <div class="megapanel" role="menu">
+            <div class="col">
+              
+            </div>
+            <div class="col">
+             
+            </div>
+          </div>
+        </li>
+        <li><a href="director.html">Director's Desk</a></li>
+        <li><a href="#admissions">Admissions</a></li>
+        <li><a href="#departments">Departments</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="slider-container">
+  
+   <section class="faculty-section">
+    <h1>Mechanical Engineering<br>Meet Our Faculty/Staff</h1>
+    <p class="subtitle">Experienced mentors shaping future innovators</p>
+
+    <div class="faculty-grid">
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="mohitdhiman.png" alt="Faculty Photo">
+        </div>
+        <h3>DR.MOHIT DHIMAN<br>(PROFESSOR)</h3>
+        <p class="designation">Head, Mechanical Engineering Department</p>
+        <p class="quote">"Innovating the future through technology and education."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="ajay.png" alt="Faculty Photo">
+        </div>
+        <h3>MR.AJAY KUMAR<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Assistant Professor, Electronics</p> -->
+        <p class="quote">"Learning is a lifelong journey."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="pundir.png" alt="Faculty Photo">
+        </div>
+        <h3>ER. ANIL PUNDIR<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="raman.png">
+        </div>
+        <h3>ER. RAMAN SHARMA<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="archit.png" alt="Faculty Photo">
+        </div>
+        <h3>ER. ARCHIT SHARMA<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="niralaa.jpeg" alt="Faculty Photo">
+        </div>
+        <h3>Dr.HARISH KUMAR NIRALA<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Assistant Professor, Electronics</p> -->
+        <p class="quote">"Learning is a lifelong journey."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="anurag.jpg" alt="Faculty Photo">
+        </div>
+        <h3>ER. ANURAG DHIMAN<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="deor.jpg" alt="Faculty Photo">
+        </div>
+        <h3>ER.AMIT DEOR<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="abhinay.png" alt="Faculty Photo">
+        </div>
+        <h3>ER.ABHINAY KUMAR<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="sumit.png" alt="Faculty Photo">
+        </div>
+        <h3>ER.SUMIT KUMARbr>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="baldev.png" alt="Faculty Photo">
+        </div>
+        <h3>ER.BALDEV SINGH RANA<br>(ASSISTANT PROFESSOR)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="amandeep.png" alt="Faculty Photo">
+        </div>
+        <h3>AMANDEEP<br>(LAB TECHNICIAN)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="sachal.png" alt="Faculty Photo">
+        </div>
+        <h3>SANCHAL KUMAR<br>(LAB TECHNICIAN)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="virender.png" alt="Faculty Photo">
+        </div>
+        <h3>VIRENDER KUMAR<br>(LAB TECHNICIAN)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+
+      <div class="faculty-card">
+        <div class="img-box">
+          <img src="ranjeet.png" alt="Faculty Photo">
+        </div>
+        <h3>RANJEET KUMAR<br>(LAB TECHNICIAN)</h3>
+        <!-- <p class="designation">Associate Professor, Mechanical Engineering</p> -->
+        <p class="quote">"Empowering minds through innovation."</p>
+      </div>
+      
+      
+    </div>
+  </section>
+
+<!-- HERO, ANNOUNCEMENTS, MAIN, GALLERY, COUNTERS, FOOTER remain as your previous code -->
+
+<script src="same.js"></script>
+<script src="foot.js"></script>
+<script>
+// your previous JS for hero slider, ticker, counters
+</script>
+
+<section>
+    
+</section>
+
+</body>
+</html>

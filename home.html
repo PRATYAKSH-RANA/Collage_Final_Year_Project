@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Your College — Home</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --maroon:#a01414; --maroon-dark:#cf1a1a; --muted:#6b6b6b;
+    --bg:#f5f6f7; --card:#fff; --maxw:1200px; --glass:rgba(255,255,255,0.6);
+    
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial;color:#222;background:var(--bg);-webkit-font-smoothing:antialiased}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+body{
+  background-image: url(IMG_20200124_140010-1.jpg);
+}
+  /* TOP UTILITY BAR */
+  .utility{background:#0b2340;color:#fff;font-size:0.9rem}
+  .utility .container{display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0}
+  .utility .left{display:flex;gap:1rem;align-items:center}
+  .lang-select{background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgb(165, 53, 53);padding:0.25rem 0.5rem;border-radius:6px}
+  .utility a{color:#186eca;text-decoration:none}
+
+  /* HEADER / NAV */
+  /* College Top Banner */
+/* ====== REPLACE/ADD THESE CSS RULES FOR THE BANNER ====== */
+.college-banner {
+  background: linear-gradient(90deg, var(--maroon), var(--maroon-dark));
+  color: #fff;
+  width: 100%;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+/* inner grid keeps layout stable and centered with container width */
+.college-banner .banner-inner {
+  display: grid;
+  grid-template-columns: 150px 1fr 110px; /* left-logo | title-area | right-logo */
+  align-items: center;
+  gap: 1rem;
+  padding: 12px 1rem;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* logos */
+.banner-logo {
+  display: block;
+  width: 120%;
+  height: auto;
+  background: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  object-fit: contain;
+}
+
+/* make sure logos don't grow or shrink out of their columns */
+.banner-left, .banner-right {
+  display:flex;
+  align-items:center;
+  justify-content:center
+  
+}
+
+/* center text area — left align inside the flexible center column,
+   and add left-padding to nudge it away from the left logo */
+.banner-center {
+  text-align: left;        /* left align to avoid visual overlap */
+  padding-left: 26px;     /* <-- increase or reduce this to nudge right */
+  min-width: 220px;       /* prevents it from collapsing on narrower widths */
+}
+
+/* text styling */
+.site-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;      /* increase/decrease as needed */
+  line-height: 1.05;
+  color: #fff;
+  white-space: nowrap;    /* keep on single line; will ellipsis if needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.site-tagline {
+  margin-top: 4px;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.92);
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 820px) {
+  .college-banner .banner-inner {
+    grid-template-columns: 1fr; /* single column stack */
+    gap: 10px;
+    padding: 12px;
+  }
+  .banner-left, .banner-right { justify-content: center; }
+  .banner-center { text-align: center; padding-left: 0; }
+  .site-title { font-size: 1.35rem; white-space: normal; }
+}
+
+/* Optional: tweak logo sizes on very narrow screens */
+@media (max-width: 420px) {
+  .banner-logo { padding: 6px; }
+  .site-title { font-size: 1.1rem; }
+}
+
+
+
+/* NAVBAR */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  background: linear-gradient(90deg,#a01414,#cf1a1a);
+}
+
+nav.primary {
+  display: flex;
+  justify-content: center;
+}
+
+.menu {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 0;
+}
+
+.menu li a {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.menu li a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Mega Menu */
+.megapanel {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  background: white;
+  color: #222;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  display: none;
+  width: 820px;
+}
+
+.menu li:hover > .megapanel {
+  display: block;
+}
+
+.megapanel .col {
+  width: 50%;
+  float: left;
+  padding: 0 0.75rem;
+}
+
+.megapanel:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px){
+  .college-banner .banner-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .menu {
+    flex-direction: column;
+  }
+}
+
+  /* HERO + SLIDER */
+  .hero{ position: relative;
+  height: 60vh;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  margin-top: 5px; /* space below navbar */}
+  .hero .slides{position:absolute;inset:0; }
+  .hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 900ms ease}
+  .hero .slide.active{opacity:1}
+  .hero-overlay{position:relative;z-index:6;padding:3.5rem 0;color:white}
+  .hero-card{max-width:820px;background:linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.45));padding:1.8rem;border-radius:10px}
+  .hero-card h1{margin:0 0 0.45rem 0;font-size:2rem}
+  .hero-controls{position:absolute;left:50%;transform:translateX(-50%);bottom:1.5rem;display:flex;gap:0.5rem;z-index:9}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,0.45);border:2px solid rgba(255,255,255,0.12)}
+  .dot.active{background:rgb(167, 14, 14);border-color:rgba(177, 36, 36, 0.95)}
+
+  /* ANNOUNCEMENTS (vertical list) */
+  .announcements{margin-top:-28px;position:relative;padding:0 0 0.6rem; padding-top: 22%;}
+  .ann-wrap{background:var(--card);padding:0.6rem;border-radius:8px;display:flex;align-items:center;gap:1rem;box-shadow:0 10px 30px rgba(0,0,0,0.06)}
+  .ann-label{background:var(--maroon);color:white;padding:0.45rem 0.7rem;border-radius:6px;font-weight:700}
+  .ticker{overflow:hidden;height:48px}
+  .ticker ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;animation:scroll 11s linear infinite}
+  .ticker li{padding:6px 0;font-weight:600;color:var(--muted)}
+  @keyframes scroll{0%{transform:translateY(0)}25%{transform:translateY(0)}33%{transform:translateY(-100%)}58%{transform:translateY(-100%)}66%{transform:translateY(-200%)}91%{transform:translateY(-200%)}100%{transform:translateY(0)}}
+
+  /* MAIN GRID */
+  main{padding:1.25rem 0}
+  .layout{display:grid;grid-template-columns:1fr 320px;gap:1rem}
+  /* NEWS LIST (left) */
+  .news-list .news-item{display:flex;gap:0.9rem;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:0.85rem;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+  .news-item img{width:140px;height:90px;object-fit:cover;border-radius:6px}
+  .news-body h3{margin:0;font-size:1.05rem}
+  .meta{color:var(--muted);font-size:0.9rem;margin-top:6px}
+
+  /* RIGHT SIDEBAR (Quick links + events) */
+  .card{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.04)}
+  .events li{list-style:none;padding:0.5rem 0;border-bottom:1px dashed #efefef}
+  .quick-links a{display:block;padding:0.45rem 0;color:var(--maroon);text-decoration:none;font-weight:600}
+
+  /* counter */
+  
+
+.stats-section{
+    background: #f8f9fb;
+    padding: 60px 0;
+}
+
+.container{
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.stat-box{
+    background: #ffffff;
+    padding: 35px 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #003366;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+.stat-box:hover{
+    background: linear-gradient(135deg, #003366, #005fa3);
+    color: #FFCC00;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.icon{
+    font-size: 45px;
+    margin-bottom: 12px;
+    color: #003366;
+}
+
+.stat-box:hover .icon{
+    color: #FFCC00;
+}
+
+.counter{
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #003366;
+}
+
+.stat-box:hover .counter{
+    color: #FFCC00;
+}
+
+.stat-box p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.stat-box:hover p{
+    color: #ffffff;
+}
+
+
+    /* videogallery */
+    
+
+body{
+    background: #f9fcfc;
+    padding: 40px 0;
+}
+
+.sections-container{
+    width: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card-section{
+    background: #00363a;
+    padding: 15px 15px;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.4);
+    transition: 0.4s;
+}
+.card-section:hover{
+    transform: translateY(-10px);
+}
+
+.section-heading{
+    font-size: 26px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid cyan;
+    padding: 8px;
+}
+
+.slider-container{
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.slider img{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.play-btn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 45px;
+    background: white;
+    border-radius: 50%;
+    padding: 10px 18px;
+    cursor: pointer;
+    color: #00363a;
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.4);
+    transition: 0.3s;
+}
+.play-btn:hover{
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.slider-btn{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.6);
+    border: none;
+    padding: 10px;
+    font-size: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.slider-btn:hover{
+    background: white;
+    transform: translateY(-50%) scale(1.2);
+}
+
+.prev{ left: 10px; }
+.next{ right: 10px; }
+
+.dots{
+    margin-top: 10px;
+}
+.dots div{
+    height: 10px;
+    width: 10px;
+    background: #aaa;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+}
+.dots div.active{
+    background: cyan;
+    transform: scale(1.3);
+}
+
+/* Responsive */
+@media (max-width: 900px){
+    .sections-container{
+        grid-template-columns: 1fr;
+    }
+}
+
+
+  /* FOOTER */
+  footer {
+  background: #d30404;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 40px 5vw 15px 5vw;
+}
+
+.footer-section {
+  flex: 1 1 200px;
+  margin: 10px 20px;
+}
+
+.footer-section h3 {
+  border-bottom: 2px solid #09c; 
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  letter-spacing: 1px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+.footer-section ul li a {
+  color: #f3f3f3;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-section ul li a:hover {
+  color: #09c;
+}
+.footer-section .social-icons a {
+  font-size: 1.5em;
+  margin-right: 10px;
+  color: #f3f3f3;
+  transition: color 0.2s, transform 0.2s;
+}
+.footer-section .social-icons a:hover {
+  color: #09c;
+  transform: scale(1.15);
+}
+.footer-bottom {
+  background: #144245;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 1em;
+  position: relative;
+}
+#toTop {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  background: #0099cc;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+#toTop:hover {
+  background: #007a99;
+}
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-section {
+    margin: 15px 0;
+    width: 100%;
+  }
+}
+
+
+  /* responsive */
+  @media (max-width:980px){
+    .layout{grid-template-columns:1fr}
+    .megapanel{position:static;width:100%;box-shadow:none;border-radius:0;padding:0;margin-top:8px}
+    .menu{display:none}
+  }
+  @media (max-width:640px){
+    .hero-card h1{font-size:1.35rem}
+  }
+</style>
+</head>
+<body>
+
+  <!-- Utility bar -->
+  <div class="utility">
+    <div class="container">
+      <div class="left">
+        <div><a href="#" ><i class="fa fa-envelope">rggec.office@gmail.com</i></a> <a href="#"></a></div>
+        <div style="margin-left:1rem">
+          <select class="lang-select" aria-label="Language selector">
+            <option>English</option>
+            <option>हिन्दी</option>
+          </select>
+        </div>
+      </div>
+      <div>  <input type="search" id="site-search" name="q" placeholder="Type Here" /><button>Search</button>
+    </div>
+    <div class="zoom-controls" role="region" aria-label="Text size controls">
+    <button id="zoom-decrease" class="zoom-btn" aria-label="Decrease text size">A-</button>
+    <button id="zoom-reset" class="zoom-btn" aria-label="Reset text size">A</button>
+    <button id="zoom-increase" class="zoom-btn" aria-label="Increase text size">A+</button>
+  </div>
+  </div>
+
+  <!-- Header + Nav -->
+  <header>
+    <!-- Top College Name Banner -->
+<!-- ====== REPLACE EXISTING BANNER MARKUP WITH THIS ====== -->
+<div class="college-banner">
+  <div class="banner-inner container">
+    <div class="banner-left">
+      <img src="RGGEC-Logo-300x236.png" alt="RGGEC Logo" class="banner-logo left-logo">
+    </div>
+
+    <div class="banner-center">
+      <div class="site-title">Rajiv Gandhi Government Engineering College Kangra At<br> Nagrota Bagwan (H.P)-176047</div>
+      <div class="site-tagline">Knowledge • Service • Excellence</div>
+    </div>
+
+    <div class="banner-right">
+      <img src="image.png" alt="Partner Logo" class="banner-logo right-logo" width="130ox">
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- NAVBAR -->
+<header>
+  <div class="container topnav">
+    <nav class="primary" aria-label="Main navigation">
+      <ul class="menu" role="menubar">
+        <li><a href="#">Home</a></li>
+        <li>
+          <a href="aboutnew.html" aria-haspopup="true">About</a>
+          <div class="megapanel" role="menu">
+            <div class="col">
+              
+            </div>
+          </div>
+        </li>
+        <li><a href="director.html">Director's Desk</a></li>
+        <li><a href="#admissions">Admissions</a></li>
+        <li><a href="#departments">Departments</a>
+        
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  </header>
+
+  <!-- HERO with slider -->
+  <section class="hero" aria-label="Hero slider">
+    <div class="slides" id="slides">
+      <div class="slide active" style="background-image:url('IMG_20200124_140010-1.jpg' ) ;" ></div>
+      <div class="slide" style="background-image:url('rajiv-gandhi-government-engineering-college-nagrota-bagwan-kangra-engineering-colleges-rQrtQaZEN8.avif')"></div>
+      <div class="slide" style="background-image:url('electronics-about_img.png')"></div>
+    </div>
+
+    <div class="hero-overlay container">
+      <div class="hero-card">
+        <h1>Welcome to Your College</h1>
+        <p>Academic excellence, world-class research and a vibrant campus experience.</p>
+        <div style="margin-top:0.8rem">
+          <a href="#admissions" style="display:inline-block;background:var(--maroon);color:#fff;padding:0.5rem 0.8rem;border-radius:6px;text-decoration:none;font-weight:700;margin-right:0.6rem">Admissions</a>
+          <a href="#news" style="display:inline-block;background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:0.5rem 0.8rem;border-radius:6px;text-decoration:none;font-weight:600">News & Events</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-controls" id="dots">
+      <div class="dot active" data-i="0"></div>
+      <div class="dot" data-i="1"></div>
+      <div class="dot" data-i="2"></div>
+    </div>
+
+    <!-- announcements overlapping hero -->
+    <div class="container announcements">
+      <div class="ann-wrap">
+        <div class="ann-label">NOTICE BOARD</div>
+        <div class="ticker" style="flex:1">
+          <ul>
+            <li><a href="office-order-regarding-1st-semester-and-3rd-semester-LEET-students.pdfi">Convocation scheduled on Dec 20, 2025</a></li>
+            <li><a href="#">Research grant awarded to AI Lab — Rs. 3.5 Cr</a></li>
+          </ul>
+        </div>
+        <div style="width:120px;text-align:right;color:var(--muted);font-weight:600" ><a href="#">More →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container" id="news">
+    <div class="layout">
+      <!-- left: news list -->
+      <section>
+        <!-- <h2 style="margin:0 0 0.6rem 0">Latest News</h2> -->
+
+        <div class="news-list">
+          <div class="news-item">
+            <img src="IMG_20200124_140010-1.jpg" alt="">
+            <div class="news-body">
+              <h3>campus news</h3>
+              <div class="meta">14 Oct 2025 · Campus</div>
+              <p style="margin-top:8px;color:#444">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea culpa adipisci molestiae animi, expedita corrupti dolores quod explicabo fugiat omnis quibusdam repudiandae odit tenetur corporis, nemo consectetur earum eos quasi.</p>
+            </div>
+          </div>
+
+          <div class="news-item">
+            <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=800&q=60" alt="">
+            <div class="news-body">
+              <h3>campus news 1</h3>
+              <div class="meta">11 Oct 2025 · Events</div>
+              <p style="margin-top:8px;color:#444">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum voluptatibus ad ex architecto nesciunt iure impedit, dolorum deserunt quisquam sequi, ea, repellendus sint quasi quidem minima eligendi excepturi doloremque soluta?.</p>
+            </div>
+          </div>
+
+          <div class="news-item">
+            <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=800&q=60" alt="">
+            <div class="news-body">
+              <h3>campus  news 3</h3>
+              <div class="meta">09 Oct 2025 · Research</div>
+              <p style="margin-top:8px;color:#444">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut expedita eveniet laborum accusamus, nulla, consequatur, quo libero at repellendus nihil rem maiores. Officia similique quasi magni iusto obcaecati asperiores neque.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- right: sidebar -->
+      <aside>
+        <div class="card" style="margin-bottom:1rem">
+          <h3 style="margin:0 0 0.6rem 0">Upcoming Events</h3>
+          <ul class="events" style="margin:0;padding:0">
+            <li ><strong >Nov 10, 2025</strong> — Guest Lecture: Future of Energy</li>
+            <li><strong>Dec 01, 2025</strong> — Industry-Academia Conclave</li>
+            <li><strong>Dec 20, 2025</strong> — Convocation</li>
+          </ul>
+        </div>
+
+        <!-- <div class="card quick-links">
+          <h3 style="margin:0 0 0.6rem 0">Quick Links</h3>
+          <a href="#">Admissions</a>
+          <a href="#">Programs</a>
+          <a href="#">Research Park</a>
+          <a href="#">RTI</a>
+          <a href="#">Alumni</a>
+        </div>
+      </aside>
+    </div> -->
+  </main>
+
+  <section class="sections-container">
+
+    <!-- News & Events -->
+    <div class="card-section">
+        <h2 class="section-heading"> EVENTS</h2>
+        <div class="slider-container">
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider news-slider">
+                <img src="IMG_20200124_140010-1.jpg" alt="">
+            </div>
+            <!-- <button class="slider-btn next">❯</button> -->
+        </div>
+        <!-- <div class="dots"></div> -->
+        <div class="slider-container">
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider news-slider">
+                <img src="IMG_20200124_140010-1.jpg" alt="">
+            </div>
+            <!-- <button class="slider-btn next">❯</button> -->
+        </div>
+        <!-- <div class="dots"></div> -->
+    </div>
+
+    <!-- Video Gallery -->
+    <div class="card-section">
+        <h2 class="section-heading">VIDEO GALLERY</h2>
+        <div class="slider-container">
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider video-slider">
+                <img src="IMG_20200124_140010-1.jpg" alt="">
+                <div class="play-btn">▶</div>
+            </div>
+            <!-- <button class="slider-btn next">❯</button> -->
+        </div>
+        <div class="dots"></div>
+
+        <div class="slider-container">
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider video-slider">
+                <img src="IMG_20200124_140010-1.jpg" alt="">
+                <div class="play-btn">▶</div>
+            </div>
+            <!-- <button class="slider-btn next">❯</button> -->
+        </div>
+        <!-- <div class="dots"></div> -->
+    </div>
+
+    <!-- Gallery -->
+    <div class="card-section">
+        <h2 class="section-heading">GALLERY</h2>
+        <div class="slider-container">
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider gallery-slider">
+                <img src="IMG_20200124_140010-1.jpg" alt="">
+            </div>
+            <!-- <button class="slider-btn next">❯</button> -->
+        </div>
+        <!-- <div class="dots"></div> -->
+
+        <div class="slider-container">
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider gallery-slider">
+                <img src="electronics-about_img.png" alt="">
+            </div>
+            <!-- <button class="slider-btn next">❯</button> -->
+        </div>
+        <!-- <div class="dots"></div> -->
+    </div>
+
+</section>
+
+<script src="same.js"></script>
+
+
+   <!-- COUNTERS -->
+     <section class="stats-section">
+    <div class="container">
+
+        <div class="stat-box">
+            <i class="icon">👨‍🎓</i>
+            <h2 class="counter" data-target="1200">1,200+</h2>
+            <p>Students Enrolled</p>
+        </div>
+
+        <div class="stat-box">
+            <i class="icon">👨‍🏫</i>
+            <h2 class="counter" data-target="40">40+</h2>
+            <p>Teaching & Research Staff</p>
+        </div>
+
+        <div class="stat-box">
+            <i class="icon">🎓</i>
+            <h2 class="counter" data-target="2000+">2000+</h2>
+            <p>Degrees Awarded</p>
+        </div>
+
+        <div class="stat-box">
+            <i class="icon">📑</i>
+            <h2 class="counter" data-target="200">200+</h2>
+            <p>Subjects</p>
+        </div>
+
+    </div>
+</section>
+
+  <!-- FOOTER -->
+  <footer>
+  <div class="footer-container">
+    <div class="footer-section links">
+      <h3>Important Links</h3>
+      <ul>
+        <li><a href="http://www.himtu.ac.in">himtu.ac.in</a></li>
+        <li><a href="http://www.techeduhp.gov.in">techeduhp.gov.in</a></li>
+        <li><a href="http://www.aicte-india.org">aicte-india.org</a></li>
+        <li><a href="http://www.himachal.nic.in">himachal.nic.in</a></li>
+        <li><a href="http://www.data.gov.in">data.gov.in</a></li>
+        <li><a href="http://www.india.gov.in">india.gov.in</a></li>
+        <li><a href="https://www.hpdtce.attendance.gov.in">hpdtce.attendance.gov.in</a></li>
+      </ul>
+    </div>
+    <div class="footer-section address">
+      <h3>Address</h3>
+      <p>Rajiv Gandhi Government Engineering College Kangra at Nagrota Bagwan,<br> Himachal Pradesh - 176047</p>
+      <p>Email: <a href="mailto:rggec.office@gmail.com">rggec.office@gmail.com</a></p>
+      <p>Phone: <a href="tel:+911892249188">+91-1892-249188</a></p>
+      <p>Website: <a href="https://www.rggec.ac.in">www.rggec.ac.in</a></p>
+    </div>
+    <div class="footer-section map">
+  <h3>How to Reach</h3>
+  <iframe 
+     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.261481074301!2d76.01486937542674!3d32.10843068235454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391b5bb4d6fbc5c9%3A0x1896510b63822932!2sRajiv%20Gandhi%20Government%20Engineering%20College%2C%20Nagrota%20Bagwan!5e0!3m2!1sen!2sin!4v1708728856548!5m2!1sen!2sin"  -->
+    width="250" 
+    height="130" 
+    style="border:0; border-radius:8px;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+    <div class="footer-section social">
+      <h3>Follow us</h3>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/share/17K6jXJtyz/"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; All rights reserved to RGCEC 2025<br>Made by Pratyaksh Rana(ECE)<br>Semester:7th<br>Batch:2022-26
+    <button onclick="scrollToTop()" id="toTop">&#8679;</button>
+  </div>
+</footer>
+<script src="foot.js"></script>
+  </footer>
+
+<script>
+  // simple hero slider
+  (function(){
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    let i = 0, t;
+    function show(idx){
+      slides.forEach(s=>s.classList.remove('active'));
+      dots.forEach(d=>d.classList.remove('active'));
+      slides[idx].classList.add('active');
+      dots[idx].classList.add('active');
+      i = idx;
+    }
+    function next(){ show((i+1)%slides.length); }
+    t = setInterval(next,6000);
+    dots.forEach(d=>d.addEventListener('click', ()=>{ clearInterval(t); show(Number(d.dataset.i)); t=setInterval(next,6000); }));
+    slides.forEach(s=>{ s.addEventListener('mouseover', ()=> clearInterval(t)); s.addEventListener('mouseout', ()=> t=setInterval(next,6000)); });
+
+    // pause ticker on hover
+    const ticker = document.querySelector('.ticker ul');
+    const holder = document.querySelector('.ticker');
+    holder.addEventListener('mouseover', ()=> ticker.style.animationPlayState='paused');
+    holder.addEventListener('mouseout', ()=> ticker.style.animationPlayState='running');
+
+    // simple responsive menu show on small screens
+    const menu = document.querySelector('.menu');
+    if(window.innerWidth < 980){ menu.style.display = 'none'; }
+    window.addEventListener('resize', ()=>{ if(window.innerWidth < 980) menu.style.display='none'; else menu.style.display='flex'; });
+
+     // Counters (intersection observer)
+      const counters = document.querySelectorAll('.count');
+      const runCounter = (el)=>{
+        const target = +el.dataset.target;
+        const step = Math.ceil(target/120);
+        let n = 0;
+        const t = setInterval(()=>{
+          n += step;
+          if(n >= target){ el.textContent = target; clearInterval(t); }
+          else el.textContent = n;
+        },16);
+      };
+      const obs = new IntersectionObserver((entries,observer)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ runCounter(e.target); observer.unobserve(e.target); }
+        });
+      },{threshold:0.6});
+      counters.forEach(c=>obs.observe(c));
+  })();
+
+  document.querySelectorAll('.card-section').forEach(card => {
+    let img = card.querySelector('.slider img');
+    let btnPrev = card.querySelector('.prev');
+    let btnNext = card.querySelector('.next');
+    let dots = card.querySelector('.dots');
+
+    let index = 0;
+    let images = [
+        "https://picsum.photos/900/450?random=1",
+        "https://picsum.photos/900/450?random=4",
+        "https://picsum.photos/900/450?random=5"
+    ];
+
+    // Add dots
+    images.forEach((_, i) => {
+        let d = document.createElement("div");
+        if(i === 0) d.classList.add("active");
+        dots.appendChild(d);
+    });
+
+    let updateSlider = () => {
+        img.src = images[index];
+        dots.querySelectorAll("div").forEach((d,i)=>{
+            d.classList.toggle("active", i === index);
+        });
+    }
+
+    btnPrev.addEventListener('click', () => {
+        index = (index - 1 + images.length) % images.length;
+        updateSlider();
+    });
+
+    btnNext.addEventListener('click', () => {
+        index = (index + 1) % images.length;
+        updateSlider();
+    });
+
+    function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// zoom in and out//
+/* script.js
+ * Simple, robust zoom controls by adjusting :root font-size.
+ * Saves preference in localStorage under key "siteBaseFontSize".
+ */
+
+(function () {
+  const STORAGE_KEY = 'siteBaseFontSize';
+  const root = document.documentElement;
+  const style = getComputedStyle(root);
+
+  // Read CSS variables for min/max and default (fallback if missing)
+  const MIN = parseFloat(style.getPropertyValue('--min-font-size')) || 12;
+  const MAX = parseFloat(style.getPropertyValue('--max-font-size')) || 22;
+
+  // Useful step size (px)
+  const STEP = 1.6; // ~10% of default 16px (adjust as you like)
+
+  // Get the initial base size from CSS var or computed font-size
+  function getCurrentBaseSize() {
+    // Prefer stored value
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) return Number(stored);
+
+    // Otherwise use computed root font-size (e.g. "16px")
+    const computed = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    return computed || 16;
+  }
+
+  function setBaseSize(px) {
+    const clamped = Math.min(MAX, Math.max(MIN, px));
+    root.style.setProperty('--base-font-size', clamped + 'px');
+    root.style.fontSize = clamped + 'px'; // also directly set for immediate effect
+    localStorage.setItem(STORAGE_KEY, String(clamped));
+  }
+
+  function increase() {
+    const current = getCurrentBaseSize();
+    setBaseSize(current + STEP);
+  }
+
+  function decrease() {
+    const current = getCurrentBaseSize();
+    setBaseSize(current - STEP);
+  }
+
+  function reset() {
+    // reset to the CSS default declared in :root of styles.css. We can re-read the stylesheet var:
+    const declaredDefault = parseFloat(getComputedStyle(root).getPropertyValue('--base-font-size')) || 16;
+    // If there's a stored pref, remove it and set to declared default
+    localStorage.removeItem(STORAGE_KEY);
+    // The declared default may already be applied, but ensure root.fontSize reflects it:
+    root.style.fontSize = declaredDefault + 'px';
+    root.style.setProperty('--base-font-size', declaredDefault + 'px');
+  }
+
+  // Hook buttons
+  const btnInc = document.getElementById('zoom-increase');
+  const btnDec = document.getElementById('zoom-decrease');
+  const btnReset = document.getElementById('zoom-reset');
+
+  btnInc && btnInc.addEventListener('click', increase);
+  btnDec && btnDec.addEventListener('click', decrease);
+  btnReset && btnReset.addEventListener('click', reset);
+
+  // Keyboard accessibility: + and - keys when controls are focused (or you can adapt)
+  document.addEventListener('keydown', function (e) {
+    // if focus is inside an input/textarea/iframe, ignore
+    const active = document.activeElement;
+    const ignoreTags = ['INPUT', 'TEXTAREA', 'SELECT'];
+    if (active && ignoreTags.includes(active.tagName)) return;
+
+    // + key -> increase (both '=' with shift and numpad plus)
+    if (e.key === '+' || e.key === '=' && e.shiftKey || e.key === 'Add') {
+      increase();
+      return;
+    }
+    // - key -> decrease
+    if (e.key === '-' || e.key === 'Subtract') {
+      decrease();
+      return;
+    }
+    // 0 -> reset
+    if (e.key === '0') {
+      reset();
+      return;
+    }
+  });
+
+  // On load: apply stored preference (if any)
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored) {
+    setBaseSize(Number(stored));
+  } else {
+    // ensure CSS variable baseline is applied to html font-size (use existing var)
+    const declaredDefault = parseFloat(style.getPropertyValue('--base-font-size')) || parseFloat(getComputedStyle(root).fontSize) || 16;
+    root.style.fontSize = declaredDefault + 'px';
+  }
+
+})();
+
+
+});
+</script>
+
+</body>
+</html>
